@@ -13,38 +13,66 @@ import UIKit
 class GrabFlickr: NSObject
 {
     
-    var photoAlbum = []()
+    var photoAlbum = [Data]()
     
-    @IBAction func searchByLatLon(_ sender: AnyObject)
+    func isTextFieldValid(_ number: Double, forRange: (Double, Double)) -> Bool
+    {
+        if number != nil
+        {
+            return isValueInRange(number, min: forRange.0, max: forRange.1)
+        } else {
+            return false
+        }
+    }
+    
+    func isValueInRange(_ value: Double, min: Double, max: Double) -> Bool
+    {
+        return !(value < min || value > max)
+    }
+    
+    func refresh(_ lat: Double, _ lon: Double) {
+        
+        self.photoAlbum = []
+        
+        searchByLatLon(lat, lon){print("completing")}
+    }
+    
+    func searchByLatLon( _ lat: Double, _ lon: Double, _ completion: @escaping ()-> Void)
     {
         
-        userDidTapView(self)
-        setUIEnabled(false)
+        self.photoAlbum = []
         
-        if isTextFieldValid(latitudeTextField, forRange: Constants.Flickr.SearchLatRange) && isTextFieldValid(longitudeTextField, forRange: Constants.Flickr.SearchLonRange)
+        if isTextFieldValid(lat, forRange: Constants.Flickr.SearchLatRange) && isTextFieldValid(lon, forRange: Constants.Flickr.SearchLonRange)
         {
-            photoTitleLabel.text = "Searching..."
             // TODO: Set necessary parameters!
             let methodParameters = [
                 Constants.FlickrParameterKeys.Method: Constants.FlickrParameterValues.SearchMethod,
                 Constants.FlickrParameterKeys.APIKey: Constants.FlickrParameterValues.APIKey,
-                Constants.FlickrParameterKeys.BoundingBox: bboxString(),
+                Constants.FlickrParameterKeys.BoundingBox: bboxString(lat, lon),
                 Constants.FlickrParameterKeys.SafeSearch: Constants.FlickrParameterValues.UseSafeSearch,
                 Constants.FlickrParameterKeys.Extras: Constants.FlickrParameterValues.MediumURL,
                 Constants.FlickrParameterKeys.Format: Constants.FlickrParameterValues.ResponseFormat,
                 Constants.FlickrParameterKeys.NoJSONCallback: Constants.FlickrParameterValues.DisableJSONCallback
             ]
             displayImageFromFlickrBySearch(methodParameters as [String:AnyObject])
+            {
+                (success) in
+                if success
+                {
+                    print("there are 9 photos now")
+                    completion()
+                }
+            }
         }
         else {
-            setUIEnabled(true)
-            photoTitleLabel.text = "Lat should be [-90, 90].\nLon should be [-180, 180]."
+            return
         }
     }
     
-    private func bboxString() -> String
+    
+    private func bboxString(_ lat: Double?, _ lon: Double?) -> String
     {
-        if let latitude = Double(latitudeTextField.text!), let longitude = Double(longitudeTextField.text!) {
+        if let latitude = lat, let longitude = lon {
             let minLon = max(longitude - Constants.Flickr.SearchBBoxHalfWidth, Constants.Flickr.SearchLonRange.0)
             let minLat = max(latitude - Constants.Flickr.SearchBBoxHalfHeight, Constants.Flickr.SearchLatRange.0)
             let maxLon = min(longitude + Constants.Flickr.SearchBBoxHalfWidth, Constants.Flickr.SearchLonRange.1)
@@ -59,7 +87,7 @@ class GrabFlickr: NSObject
     
     // MARK: Flickr API
     
-    private func displayImageFromFlickrBySearch(_ methodParameters: [String: AnyObject])
+    private func displayImageFromFlickrBySearch(_ methodParameters: [String: AnyObject], _ completionHandler: @escaping (_ success: Bool) -> Void)
     {
         
         let session = URLSession.shared
@@ -80,15 +108,12 @@ class GrabFlickr: NSObject
             func displayError(_ error: String)
             {
                 print(error)
-                performUIUpdatesOnMain
-                    {
-                        self.setUIEnabled(true)
-                }
+              
             }
             /* GUARD: Was there an error? */
             guard (error == nil) else
             {
-                displayError("There was an error with your request: \(error)")
+                displayError("There was an error with your request: \(String(describing: error))")
                 return
             }
             
@@ -132,13 +157,14 @@ class GrabFlickr: NSObject
             }
             
             // select a random photo
-            let randomPhotoIndex = Int(arc4random_uniform(UInt32(photoArray.count)))
+            
             
             
             //MARK: Loop to append random photos to collection
             
             for i in (1...9)
             {
+                let randomPhotoIndex = Int(arc4random_uniform(UInt32(photoArray.count)))
                 let photoDictionary = photoArray[randomPhotoIndex] as [String:AnyObject]
                 let photoTitle = photoDictionary[Constants.FlickrResponseKeys.Title] as? String
                 print(photoArray)
@@ -155,11 +181,16 @@ class GrabFlickr: NSObject
                 {
                     performUIUpdatesOnMain
                         {
-                            print(imageData as! NSData)
-                            self.setUIEnabled(true)
-                            var image = UIImage(data: imageData)
-                            var imageBinary = UIImageJPEGRepresentation(image, 1)
-                            photoAlbum.append(imageBinary)
+                            let image = UIImage(data: imageData)
+                            let imageBinary = UIImageJPEGRepresentation(image! , 1)
+                            self.photoAlbum.append(imageBinary!)
+                            print("Album: \(self.photoAlbum)")
+                            
+                            if self.photoAlbum.count == 9
+                            {
+                                completionHandler(true)
+                            }
+                    
                     }
                 }
                 else
@@ -192,10 +223,15 @@ class GrabFlickr: NSObject
         return components.url!
     }
 
-    
-
-
-
+    class func sharedInstance() -> GrabFlickr
+    {
+        struct Singleton
+        {
+            static var sharedInstance = GrabFlickr()
+        }
+        return Singleton.sharedInstance
+        
+    }
 
 
 

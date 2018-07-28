@@ -8,7 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		437D810C210CAA01007D4EBC /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 437D810B210CAA01007D4EBC /* AppDelegate.swift */; };
-		437D810E210CAA01007D4EBC /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 437D810D210CAA01007D4EBC /* ViewController.swift */; };
+		437D810E210CAA01007D4EBC /* StartController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 437D810D210CAA01007D4EBC /* StartController.swift */; };
 		437D8111210CAA01007D4EBC /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 437D810F210CAA01007D4EBC /* Main.storyboard */; };
 		437D8114210CAA01007D4EBC /* photoCollectTest.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 437D8112210CAA01007D4EBC /* photoCollectTest.xcdatamodeld */; };
 		437D8116210CAA13007D4EBC /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 437D8115210CAA13007D4EBC /* Assets.xcassets */; };
@@ -20,6 +20,7 @@
 		437D8143210CC166007D4EBC /* PhotoController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 437D8142210CC166007D4EBC /* PhotoController.swift */; };
 		437D8147210CC219007D4EBC /* PhotoCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 437D8146210CC219007D4EBC /* PhotoCell.swift */; };
 		437D8149210CC25A007D4EBC /* GCD.swift in Sources */ = {isa = PBXBuildFile; fileRef = 437D8148210CC25A007D4EBC /* GCD.swift */; };
+		437D814B210CFDD1007D4EBC /* Location.swift in Sources */ = {isa = PBXBuildFile; fileRef = 437D814A210CFDD1007D4EBC /* Location.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -42,7 +43,7 @@
 /* Begin PBXFileReference section */
 		437D8108210CAA01007D4EBC /* photoCollectTest.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = photoCollectTest.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		437D810B210CAA01007D4EBC /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		437D810D210CAA01007D4EBC /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		437D810D210CAA01007D4EBC /* StartController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StartController.swift; sourceTree = "<group>"; };
 		437D8110210CAA01007D4EBC /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		437D8113210CAA01007D4EBC /* photoCollectTest.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = photoCollectTest.xcdatamodel; sourceTree = "<group>"; };
 		437D8115210CAA13007D4EBC /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -59,6 +60,7 @@
 		437D8142210CC166007D4EBC /* PhotoController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoController.swift; sourceTree = "<group>"; };
 		437D8146210CC219007D4EBC /* PhotoCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoCell.swift; sourceTree = "<group>"; };
 		437D8148210CC25A007D4EBC /* GCD.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GCD.swift; sourceTree = "<group>"; };
+		437D814A210CFDD1007D4EBC /* Location.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Location.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -150,7 +152,7 @@
 		437D8141210CC140007D4EBC /* Controller */ = {
 			isa = PBXGroup;
 			children = (
-				437D810D210CAA01007D4EBC /* ViewController.swift */,
+				437D810D210CAA01007D4EBC /* StartController.swift */,
 				437D8142210CC166007D4EBC /* PhotoController.swift */,
 			);
 			path = Controller;
@@ -160,8 +162,9 @@
 			isa = PBXGroup;
 			children = (
 				437D8112210CAA01007D4EBC /* photoCollectTest.xcdatamodeld */,
-				437D813C210CAA3A007D4EBC /* Flickr */,
 				437D8148210CC25A007D4EBC /* GCD.swift */,
+				437D814A210CFDD1007D4EBC /* Location.swift */,
+				437D813C210CAA3A007D4EBC /* Flickr */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -309,7 +312,8 @@
 				437D8147210CC219007D4EBC /* PhotoCell.swift in Sources */,
 				437D8143210CC166007D4EBC /* PhotoController.swift in Sources */,
 				437D8149210CC25A007D4EBC /* GCD.swift in Sources */,
-				437D810E210CAA01007D4EBC /* ViewController.swift in Sources */,
+				437D810E210CAA01007D4EBC /* StartController.swift in Sources */,
+				437D814B210CFDD1007D4EBC /* Location.swift in Sources */,
 				437D810C210CAA01007D4EBC /* AppDelegate.swift in Sources */,
 				437D813E210CBF8D007D4EBC /* GrabFlickr.swift in Sources */,
 				437D8140210CBF97007D4EBC /* constants.swift in Sources */,

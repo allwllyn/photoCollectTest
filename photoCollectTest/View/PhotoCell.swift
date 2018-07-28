@@ -27,6 +27,7 @@ class PhotoCell: UICollectionViewCell
             activityIndicator.isHidden = false
             activityIndicator.startAnimating()
         }
+       
     }
 
     
