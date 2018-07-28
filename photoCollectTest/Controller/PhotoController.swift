@@ -55,6 +55,7 @@ class PhotoController: UICollectionViewController
              cell.activityIndicator.isHidden = true
         }
         else{
+            cell.imageView.image = nil
             cell.activityIndicator.isHidden = false
             cell.activityIndicator.startAnimating()
         }
@@ -77,10 +78,27 @@ class PhotoController: UICollectionViewController
         }
     }
     
-    @IBAction func newSet(_ sender: Any) {
+    func setAlbum()
+    {
+        self.photoAlbum = GrabFlickr.sharedInstance().photoAlbum
+        
+    }
+    
+    func clearAlbum()
+    {
+        GrabFlickr.sharedInstance().photoAlbum = []
+        
+    }
+    
+    @IBAction func newSet(_ sender: Any)
+    {
+        clearAlbum()
+        
+        setAlbum()
+        
+        self.PhotoCollection.reloadData()
         
         loadPhotos()
-        
     }
     
     

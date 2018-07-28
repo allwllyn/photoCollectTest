@@ -40,8 +40,6 @@ class GrabFlickr: NSObject
     func searchByLatLon( _ lat: Double, _ lon: Double, _ completion: @escaping ()-> Void)
     {
         
-        self.photoAlbum = []
-        
         if isTextFieldValid(lat, forRange: Constants.Flickr.SearchLatRange) && isTextFieldValid(lon, forRange: Constants.Flickr.SearchLonRange)
         {
             // TODO: Set necessary parameters!
