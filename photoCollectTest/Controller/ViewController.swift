@@ -8,17 +8,30 @@
 
 import UIKit
 
-class ViewController: UIViewController {
+class StartController: UIViewController {
+    
+    
+    
+    @IBOutlet weak var latText: UITextField!
+    
+    
+    @IBOutlet weak var lonText: UITextField!
+    
+    
+    
+    
+    
+    
+    
+    
+    
 
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
     }
 
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
-    }
+    
 
 
 }
